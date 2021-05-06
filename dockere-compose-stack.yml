@@ -1,0 +1,38 @@
+version: "3"
+services:
+   web:
+     image: nlpappu/pyredis1:pywebh
+     ports:
+       - "81:5000"
+     networks:
+        - my-net
+     deploy:
+        replicas: 3
+        resources:
+            limits:
+                cpus: "0.1"
+                memory: 512mb
+        update_config:
+            parallelism: 1
+            delay: 60s
+
+     links:
+        - redis
+   redis:
+     image: "redis:alpine"
+     networks: 
+        - my-net
+     ports:
+        - "6379"
+     deploy:
+        update_config:
+            parallelism: 2
+            delay: 10s
+        restart_policy:
+            condition: on-failure
+     volumes: 
+       - "my-vol:/data"
+networks:
+    my-net:
+volumes:
+    my-vol:
