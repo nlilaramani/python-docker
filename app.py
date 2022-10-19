@@ -18,7 +18,7 @@ def hello():
           count = get_hit_count()
           return socket.gethostname()+'.V1>>Hello World! I have been seen {} times.\n'.format(count)
 @app.route('/')
-def hello():
+def hello1():
           return socket.gethostname()+'.V1>>Hello World!.\n'
 
 if __name__ == "__main__":
